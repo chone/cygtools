@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+
+var exec = require('child_process').exec;
+var path = require('path');
+
+getUri(function(uri) {
+  exec(getChromeUri() + ' ' + uri);
+});
+
+function getChromeUri() {
+  return '%UserProfile%/AppData/Local/Google/Chrome/Application/chrome.exe';
+}
+
+function getUri(callback) {
+  var uri = process.argv[2];
+  if (/^http/.exec(uri)) {
+    return callback(uri);
+  } else {
+    exec('cygpath -m ' + uri, function(err, stdout) {
+      if (stdout) {
+	callback(stdout);
+      } else {
+	throw Error(err);
+      }
+    });
+  }
+}
