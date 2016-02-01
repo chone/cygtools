@@ -1,5 +1,14 @@
 #!/usr/bin/env node
 
+/**
+ * Useage: 
+ *  1. install this script use this command
+ *    $ npm install -g .
+ *  2. run command 'chrome' in cygwin like 
+ *    $ chrome http://github.com
+ *    $ chrome ./my/page/index.html
+ */
+
 var exec = require('child_process').exec;
 var path = require('path');
 
