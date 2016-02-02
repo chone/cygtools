@@ -35,7 +35,7 @@ function getUri(callback, fail) {
   if (!uri) {
     callback('.');
   } else if (/^http/.exec(uri)) {
-    return callback(uri);
+    callback(uri);
   } else {
     exec('cygpath -m ' + uri, function(err, stdout) {
       if (stdout) {
