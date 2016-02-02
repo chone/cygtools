@@ -25,7 +25,7 @@ function getParams() {
   var action = argv[2];
   var domain = argv[3];
   var ip = argv[4];
-  if (!/[0-9]*\.[0-9]*\.[0-9]\.[0-9]/.exec(ip)) {
+  if (ip && !/[0-9]*\.[0-9]*\.[0-9]\.[0-9]/.exec(ip)) {
     console.log('Invalid ip ' + ip);
     return;
   }
@@ -137,7 +137,8 @@ function createLine(domain, ip) {
  */
 function _find(domain) {
   var content = fs.readFileSync(getHostsPath(), 'utf-8');
-  var regex = new RegExp('\\n?([0-9]*\.[0-9]*\.[0-9]\.[0-9]) ' + domain);
+  var regex = new RegExp(
+    '\\r?\\n[^#0-9]?([0-9]*\.[0-9]*\.[0-9]*\.[0-9]*)\\s+' + domain + '\\s?');
   var matcher = content.match(regex);
   if (matcher && matcher[1]) {
     return {
